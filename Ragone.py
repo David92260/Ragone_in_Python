@@ -1,12 +1,13 @@
 """
-Illustrate the scale transformations applied to axes, e.g. log, symlog, logit.
+Ragone Diagram.
 """
 import numpy as np
 import matplotlib.path as mpath
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 
-# make up some data in the interval ]0, 1[
+# x => specific energy (Wh/kg)
+# y => specific power (W/kg)
 x = np.arange(0,600)
 y_001C = 0.01 * x
 y_01C = 0.1 * x
@@ -15,10 +16,8 @@ y_10C = 10 * x
 y_100C = 100 * x
 y_1000C = 1000 * x
 
-# plot with various axes scales
 fig, axs = plt.subplots()
 
-# linear
 axs.set_label('s')
 plt.axis([0,600,1,100000])
 plt.axhline(y=0.007, xmin=0, xmax=1, linestyle='dotted', color='0.5')
@@ -77,10 +76,6 @@ patch = mpatches.PathPatch(path, facecolor='#ff00ff', alpha=0.5)
 axs.add_patch(patch)
 plt.text(150, 9000, 'Thermal batteries', color='k')
 
-# plot control points and connecting lines
-#x, y = zip(*path.vertices)
-#line, = axs.plot(x, y, 'go-')
-
 Path1 = mpath.Path
 path1_data = [
     (Path1.MOVETO, (410, 0.8)),
@@ -97,10 +92,6 @@ path1 = mpath.Path(verts1, codes1)
 patch1 = mpatches.PathPatch(path1, facecolor='g', alpha=0.5)
 axs.add_patch(patch1)
 plt.text(310, 12, 'Li/SOCl2 Spiral', color='k')
-
-# plot control points and connecting lines
-#x, y = zip(*path1.vertices)
-#line, = axs.plot(x, y, 'go-')
 
 Path3 = mpath.Path
 path3_data = [
@@ -187,11 +178,7 @@ patch7 = mpatches.PathPatch(path7, facecolor='#99ff99', alpha=0.5)
 axs.add_patch(patch7)
 plt.text(260, 1.5, 'Li/MnO2', color='k')
 
-#axs.plot(160, 960, marker='D', color='#ff00ff')
-#axs.plot(200, 1200, marker='D')
-#axs.plot(150, 800, marker='D')
-#axs.plot(130, 800, marker='D')
-axs.plot(225, 1650, marker='D', color='k')
-plt.text(220, 2000, 'Li-S (Sion Power)', color='k')
+#axs.plot(225, 1650, marker='D', color='k')
+#plt.text(220, 2000, 'Li-S (Sion Power)', color='k')
 
 plt.show()
